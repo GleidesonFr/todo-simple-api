@@ -1,0 +1,6 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "java.configuration.updateBuildConfiguration" :"interactive"
+}
