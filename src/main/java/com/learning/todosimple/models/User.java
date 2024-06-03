@@ -2,6 +2,10 @@ package com.learning.todosimple.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,8 +34,9 @@ public class User {
     @Size(groups = CreateUser.class, min = 2, max = 100)
     private String username;
 
+    @JsonProperty(access = Access.WRITE_ONLY)  //acesso a leitura e escrita
     @Column(name = "password", length = 60, nullable = false)
-    @NotBlank(groups = {CreateUser.class, UpdateUser.class})
+    @NotBlank(groups = {CreateUser.class, UpdateUser.class}) //não aceita valores nulos ou vazios
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
     private String password;
 
@@ -65,5 +70,23 @@ public class User {
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this){
+            return true;
+        }else if(!(obj instanceof User)){
+            return false;
+        }
+
+        User user = (User) obj;
+        return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username) && Objects.equals(this.password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        // TODO Auto-generated method stub
+        return Objects.hash(this.id, this.password, this.username);
     }
 }
