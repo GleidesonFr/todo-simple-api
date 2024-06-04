@@ -79,7 +79,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
         return Objects.hash(this.id, this.user, this.description);
     }
 }

@@ -98,7 +98,6 @@ public class User {
 
     @Override
     public int hashCode() {
-        // TODO Auto-generated method stub
         return Objects.hash(this.id, this.password, this.username);
     }
 }
