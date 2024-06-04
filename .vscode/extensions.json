@@ -2,6 +2,7 @@
     "recommendations": [
         "vscjava.vscode-java-pack",
         "vmware.vscode-boot-dev-pack",
-        "vmware.vscode-boot-dev-pack"
+        "vmware.vscode-boot-dev-pack",
+        "ritwickdey.liveserver"
     ]
 }
