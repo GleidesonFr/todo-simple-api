@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.learning.todosimple.models.Task;
 import com.learning.todosimple.models.User;
 import com.learning.todosimple.repositories.TaskRepository;
+import com.learning.todosimple.services.exceptions.DataBindingViolationException;
+import com.learning.todosimple.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskService {
@@ -21,7 +23,7 @@ public class TaskService {
 
     public Task findById(Long id){
         Optional<Task> task = this.taskRepository.findById(id);
-        return task.orElseThrow(() -> new RuntimeException(
+        return task.orElseThrow(() -> new ObjectNotFoundException(
             "Task not found! id: " + id + ", Tipo: " + User.class.getName()
         ));
     }
@@ -52,7 +54,7 @@ public class TaskService {
         try {
             this.taskRepository.deleteById(id);    
         } catch (Exception e) {
-            throw new RuntimeException("Não is possible delete exists relationed entities!");
+            throw new DataBindingViolationException("Não is possible delete exists relationed entities!");
         }
     }
 }

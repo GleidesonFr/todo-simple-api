@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.learning.todosimple.models.User;
 import com.learning.todosimple.repositories.UserRepository;
+import com.learning.todosimple.services.exceptions.DataBindingViolationException;
+import com.learning.todosimple.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -17,7 +19,7 @@ public class UserService {
 
     public User findById(Long id){
         Optional<User> user = this.userRepository.findById(id); //optinal é uma classe que recebe e envia valores vazios, não nulos
-        return user.orElseThrow( () -> new RuntimeException( //orElseThrow retorna uma exceção caso um objeto seja vazio - RuntimeException não encerra o programa
+        return user.orElseThrow( () -> new ObjectNotFoundException( //orElseThrow retorna uma exceção caso um objeto seja vazio - RuntimeException não encerra o programa
             "User not found! id: " + id + ", Tipo: " + User.class.getName()
         ));
     }
@@ -41,7 +43,7 @@ public class UserService {
         try {
             this.userRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Not is possible delete, because exists relationed entities!");
+            throw new DataBindingViolationException("Not is possible delete, because exists relationed entities!");
         }
     }
 
