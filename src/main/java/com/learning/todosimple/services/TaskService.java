@@ -54,7 +54,7 @@ public class TaskService {
         try {
             this.taskRepository.deleteById(id);    
         } catch (Exception e) {
-            throw new DataBindingViolationException("Não is possible delete exists relationed entities!");
+            throw new DataBindingViolationException("Not is possible delete exists relationed entities!");
         }
     }
 }
