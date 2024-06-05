@@ -51,7 +51,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){ //criptografar dados
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){ //criptografar senhas dados
         return new BCryptPasswordEncoder();
     }
 }
