@@ -2,9 +2,7 @@ package com.learning.todosimple.models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -17,9 +15,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
 @Entity
 @Table (name = User.TABLE_NAME)
+@Data
 public class User {
     public interface CreateUser{}
     public interface UpdateUser{}
@@ -43,63 +43,6 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user") //mappedBy verifica quem está mapeando os dados relacionados ao array
+    @JsonProperty(access = Access.WRITE_ONLY)
     private List<Task> tasks = new ArrayList<Task>();
-
-    public User(){}
-
-    public User(Long id, String username, String password){
-        this.id = id;
-        this.password = password;
-        this.username = username;
-    }
-
-    public Long getId(){
-        return this.id;
-    }
-
-    public String getUsername(){
-        return this.username;
-    }
-
-    public String getPassword(){
-        return password;
-    }
-
-    public void setId(Long id){
-        this.id = id;
-    }
-
-    public void setUsername(String username){
-        this.username = username;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
-    }
-
-    @JsonIgnore //ignora os dados retornados por uma função
-    public List<Task> getTasks() {
-        return this.tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == this){
-            return true;
-        }else if(!(obj instanceof User)){
-            return false;
-        }
-
-        User user = (User) obj;
-        return Objects.equals(this.id, user.id) && Objects.equals(this.username, user.username) && Objects.equals(this.password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id, this.password, this.username);
-    }
 }
